@@ -36,8 +36,6 @@
             this.btnBuscar = new System.Windows.Forms.Button();
             this.gpbDatos = new System.Windows.Forms.GroupBox();
             this.txtSaldo = new System.Windows.Forms.TextBox();
-            this.txtActividad = new System.Windows.Forms.TextBox();
-            this.txtBarrio = new System.Windows.Forms.TextBox();
             this.txtDireccion = new System.Windows.Forms.TextBox();
             this.txtNombre = new System.Windows.Forms.TextBox();
             this.lblSaldo = new System.Windows.Forms.Label();
@@ -46,6 +44,8 @@
             this.lblDireccion = new System.Windows.Forms.Label();
             this.btnBorrar = new System.Windows.Forms.Button();
             this.btnModificar = new System.Windows.Forms.Button();
+            this.txtActividad = new System.Windows.Forms.TextBox();
+            this.txtBarrio = new System.Windows.Forms.TextBox();
             this.gpbDatos.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -63,10 +63,11 @@
             // 
             this.txtDNI.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.txtDNI.Location = new System.Drawing.Point(132, 72);
-            this.txtDNI.Mask = "99999";
+            this.txtDNI.Mask = "9999";
             this.txtDNI.Name = "txtDNI";
-            this.txtDNI.Size = new System.Drawing.Size(54, 26);
+            this.txtDNI.Size = new System.Drawing.Size(42, 26);
             this.txtDNI.TabIndex = 1;
+            this.txtDNI.Text = "0000";
             this.txtDNI.ValidatingType = typeof(int);
             // 
             // btnGuardar
@@ -115,9 +116,9 @@
             // 
             // gpbDatos
             // 
-            this.gpbDatos.Controls.Add(this.txtSaldo);
             this.gpbDatos.Controls.Add(this.txtActividad);
             this.gpbDatos.Controls.Add(this.txtBarrio);
+            this.gpbDatos.Controls.Add(this.txtSaldo);
             this.gpbDatos.Controls.Add(this.txtDireccion);
             this.gpbDatos.Controls.Add(this.txtNombre);
             this.gpbDatos.Controls.Add(this.lblSaldo);
@@ -140,24 +141,6 @@
             this.txtSaldo.Name = "txtSaldo";
             this.txtSaldo.Size = new System.Drawing.Size(310, 26);
             this.txtSaldo.TabIndex = 13;
-            // 
-            // txtActividad
-            // 
-            this.txtActividad.Enabled = false;
-            this.txtActividad.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
-            this.txtActividad.Location = new System.Drawing.Point(6, 205);
-            this.txtActividad.Name = "txtActividad";
-            this.txtActividad.Size = new System.Drawing.Size(310, 26);
-            this.txtActividad.TabIndex = 12;
-            // 
-            // txtBarrio
-            // 
-            this.txtBarrio.Enabled = false;
-            this.txtBarrio.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
-            this.txtBarrio.Location = new System.Drawing.Point(6, 153);
-            this.txtBarrio.Name = "txtBarrio";
-            this.txtBarrio.Size = new System.Drawing.Size(310, 26);
-            this.txtBarrio.TabIndex = 11;
             // 
             // txtDireccion
             // 
@@ -241,6 +224,24 @@
             this.btnModificar.UseVisualStyleBackColor = true;
             this.btnModificar.Click += new System.EventHandler(this.btnModificar_Click);
             // 
+            // txtActividad
+            // 
+            this.txtActividad.Enabled = false;
+            this.txtActividad.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
+            this.txtActividad.Location = new System.Drawing.Point(6, 205);
+            this.txtActividad.Name = "txtActividad";
+            this.txtActividad.Size = new System.Drawing.Size(310, 26);
+            this.txtActividad.TabIndex = 15;
+            // 
+            // txtBarrio
+            // 
+            this.txtBarrio.Enabled = false;
+            this.txtBarrio.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtBarrio.Location = new System.Drawing.Point(6, 153);
+            this.txtBarrio.Name = "txtBarrio";
+            this.txtBarrio.Size = new System.Drawing.Size(310, 26);
+            this.txtBarrio.TabIndex = 14;
+            // 
             // frmModificar
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -279,9 +280,9 @@
         private System.Windows.Forms.TextBox txtDireccion;
         private System.Windows.Forms.TextBox txtNombre;
         private System.Windows.Forms.TextBox txtSaldo;
-        private System.Windows.Forms.TextBox txtActividad;
-        private System.Windows.Forms.TextBox txtBarrio;
         private System.Windows.Forms.Button btnBorrar;
         private System.Windows.Forms.Button btnModificar;
+        private System.Windows.Forms.TextBox txtActividad;
+        private System.Windows.Forms.TextBox txtBarrio;
     }
 }

@@ -7,6 +7,7 @@ using System.Data;
 using System.Data.OleDb;
 using System.Windows.Forms;
 using System.Net.Configuration;
+using System.IO;
 
 namespace pryIEFI_LabProgII_ProgLogII_Tissera
 {
@@ -29,11 +30,28 @@ namespace pryIEFI_LabProgII_ProgLogII_Tissera
         private Decimal Saldo;
         private String DetalleActividad;
         private String DetalleBarrio;
+        private Int32 Cant;
+        private Decimal Prom;
+        private Decimal TotSal;
+        private Decimal May;
+        private Decimal Men;
 
         public Int32 Dni_Socio
         {
             get { return DniSocio; }
             set { DniSocio = value; }
+        }
+
+        public Int32 ID_Barrio
+        {
+            get { return CodBarrio; }
+            set { CodBarrio = value; }
+        }
+
+        public Int32 ID_Actividad
+        {
+            get { return CodActividad; }
+            set { CodActividad = value; }
         }
         public String Nombre_Apellido
         {
@@ -59,6 +77,46 @@ namespace pryIEFI_LabProgII_ProgLogII_Tissera
         {
             get { return Saldo; }
             set { Saldo = value; }
+        }
+        public Int32 Cantidad
+        {
+            get { return Cant; }
+        }
+        public Decimal Promedio
+        {
+            get { return Prom; }
+        }
+        public Decimal TotalSaldo
+        {
+            get { return TotSal; }
+        }
+        public Decimal Mayor
+        {
+            get { return May; }
+        }
+        public Decimal Menor
+        {
+            get { return Men; }
+        }
+        public Decimal PromedioDoble
+        {
+            get { return Prom; }
+            set { Prom = value; }
+        }
+        public Decimal TotalSaldoDoble
+        {
+            get { return TotSal; }
+            set { TotSal = value; }
+        }
+        public Decimal MayorDoble
+        {
+            get { return May; }
+            set { May = value; }
+        }
+        public Decimal MenorDoble
+        {
+            get { return Men; }
+            set { Men = value; }
         }
         public void Listar(DataGridView Grilla)
         {
@@ -97,7 +155,7 @@ namespace pryIEFI_LabProgII_ProgLogII_Tissera
                 comando.CommandText = Socio;
 
                 OleDbDataReader DRSocio = comando.ExecuteReader();
-                
+
                 if (DRSocio.HasRows)
                 {
                     while (DRSocio.Read())
@@ -142,7 +200,7 @@ namespace pryIEFI_LabProgII_ProgLogII_Tissera
                 comando.CommandType = CommandType.TableDirect;
                 comando.CommandText = Barrio;
                 OleDbDataReader DRBarrio = comando.ExecuteReader();
-                
+
                 if (DRBarrio.HasRows)
                 {
                     while (DRBarrio.Read())
@@ -161,32 +219,24 @@ namespace pryIEFI_LabProgII_ProgLogII_Tissera
             }
         }
 
-        public void Modificar(Int32 Dni_Socio) //PENDIENTE
+        public void Modificar(Int32 Dni_Socio) //LOGRADO A MEDIAS (PENDIENTE DE REPARACIÓN)
         {
             try
             {
-                string SQLNombre, SQLDireccion, SQLBarrio, SQLActividad, SQLSaldo;
-                SQLNombre = "UPDATE Socio SET Nombre_Apellido = " + NombreApellido + " WHERE Dni_Socio = " + Dni_Socio;
-                SQLDireccion = "UPDATE Socio SET Direccion = " + DetalleDireccion + " WHERE Dni_Socio = " + Dni_Socio;
-                SQLBarrio = "UPDATE Socio SET Codigo_Barrio = " + ElBarrio + " WHERE Dni_Socio = " + Dni_Socio;
-                SQLActividad = "UPDATE Socio SET Codigo_Actividad = " + LaActividad + " WHERE Dni_Socio = " + Dni_Socio;
-                SQLSaldo = "UPDATE Socio SET Saldo = " + Saldo + " WHERE Dni_Socio = " + Dni_Socio;
-
                 conexion.ConnectionString = CadenaConexion;
                 conexion.Open();
 
                 comando.Connection = conexion;
                 comando.CommandType = CommandType.Text;
-                comando.CommandText = SQLSaldo;
-                comando.ExecuteNonQuery();
+                comando.CommandText = "UPDATE Socio SET Nombre_Apellido = '" + NombreApellido + "', Direccion = '" +
+                                        DetalleDireccion + "', Saldo = " + Saldo + " WHERE Dni_Socio = " + Dni_Socio;
 
-                comando.CommandText = SQLNombre;
-                comando.ExecuteNonQuery();
-
-                comando.CommandText = SQLDireccion;
                 comando.ExecuteNonQuery();
 
                 conexion.Close();
+
+                MessageBox.Show("Datos actualizados con éxito.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
             }
             catch (Exception Mensaje)
             {
@@ -194,7 +244,7 @@ namespace pryIEFI_LabProgII_ProgLogII_Tissera
             }
 
         }
-    
+
         public void Eliminar(Int32 Dni_Socio)
         {
             try
@@ -213,110 +263,157 @@ namespace pryIEFI_LabProgII_ProgLogII_Tissera
             {
                 MessageBox.Show(Mensaje.ToString());
             }
-            
-            
+
+
         }
-    
+
         public void Agregar()
         {
             try
             {
-                string SQLSocio, SQLBarrio, SQLActividad;
-                SQLSocio = "INSERT INTO Socio (Dni_Socio,Nombre_Apellido,Direccion,Saldo) VALUES ('" + DniSocio.ToString() + "'," + NombreApellido + "," + DetalleDireccion + "," + Saldo.ToString() + ")";
-                SQLBarrio = "INSERT INTO Barrio (Detalle_Barrio) VALUES ('" + DetalleBarrio + ")";
-                SQLActividad = "INSERT INTO Actividad (Detalle_Actividad) VALUES ('" + DetalleActividad + ")";
+                string SQLTablas, SQLComando;
+                SQLTablas = "Dni_Socio, Nombre_Apellido, Direccion, Codigo_Barrio, Codigo_Actividad, Saldo";
+                SQLComando = DniSocio + ", '" + NombreApellido + "', '" + DetalleDireccion + "', " + CodBarrio + ", " + CodActividad + ", " + Saldo;
 
                 conexion.ConnectionString = CadenaConexion;
                 conexion.Open();
 
                 comando.Connection = conexion;
                 comando.CommandType = CommandType.Text;
-                comando.CommandText = SQLSocio;
+                comando.CommandText = "INSERT INTO Socio (" + SQLTablas + ") VALUES (" + SQLComando + ")";
                 comando.ExecuteNonQuery();
 
                 conexion.Close();
 
-                
+                MessageBox.Show("Socio cargado exitosamente.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            }
+            catch (Exception Mensaje)
+            {
+                MessageBox.Show(Mensaje.ToString());
+            }
+        }
+
+        public void Calcular()
+        {
+            try
+            {
                 conexion.ConnectionString = CadenaConexion;
                 conexion.Open();
-
                 comando.Connection = conexion;
                 comando.CommandType = CommandType.TableDirect;
-                comando.CommandText = Barrio;
+                comando.CommandText = Socio;
 
-                OleDbDataReader DRBarrio = comando.ExecuteReader();
-
-                if (DRBarrio.HasRows)
+                OleDbDataReader DR = comando.ExecuteReader();
+                DR.Read();
+                May = 0;
+                Men = DR.GetDecimal(5);
+                while (DR.Read())
                 {
-                    while (DRBarrio.Read())
+                    if (DR.GetDecimal(5) > May)
                     {
-                        if (DRBarrio.GetString(1) == DetalleBarrio)
-                        {
-                            DRBarrio.Read();
-                        }
-                        else
-                        {
-                            conexion.Close();
-
-                            conexion.ConnectionString = CadenaConexion;
-                            conexion.Open();
-
-                            comando.Connection = conexion;
-                            comando.CommandType = CommandType.Text;
-                            comando.CommandText = SQLBarrio;
-                            comando.ExecuteNonQuery();
-
-                            conexion.Close();
-                        }
+                        May = DR.GetDecimal(5);
                     }
+
+                    if (DR.GetDecimal(5) < Men)
+                    {
+                        Men = DR.GetDecimal(5);
+                    }
+
+                    TotSal = TotSal + DR.GetDecimal(5);
+                    Cant++;
                 }
                 conexion.Close();
 
-                
+                Prom = TotSal / Cant;
+            }
+            catch (Exception Mensaje)
+            {
+                MessageBox.Show(Mensaje.ToString());
+            }
+        }
+
+        public void ListarActividad(DataGridView Grilla)
+        {
+            try
+            {
                 conexion.ConnectionString = CadenaConexion;
                 conexion.Open();
-
                 comando.Connection = conexion;
                 comando.CommandType = CommandType.TableDirect;
-                comando.CommandText = Actividad;
+                comando.CommandText = Socio;
 
-                OleDbDataReader DRActividad = comando.ExecuteReader();
-
-                if (DRActividad.HasRows)
+                OleDbDataReader DR = comando.ExecuteReader();
+                Grilla.Rows.Clear();
+                DR.Read();
+                May = 0;
+                Men = DR.GetDecimal(5);
+                while (DR.Read())
                 {
-                    while (DRActividad.Read())
+                    if (DR.GetInt32(4) == CodActividad)
                     {
-                        if (DRActividad.GetString(1) == DetalleActividad)
+                        Grilla.Rows.Add(DR.GetInt32(0), DR.GetString(1));
+
+                        if (DR.GetDecimal(5) > May)
                         {
-                            DRActividad.Read();
+                            May = DR.GetDecimal(5);
                         }
-                        else
+
+                        if (DR.GetDecimal(5) < Men)
                         {
-                            conexion.Close();
-
-                            conexion.ConnectionString = CadenaConexion;
-                            conexion.Open();
-
-                            comando.Connection = conexion;
-                            comando.CommandType = CommandType.Text;
-                            comando.CommandText = SQLActividad;
-                            comando.ExecuteNonQuery();
-
-                            conexion.Close();
+                            Men = DR.GetDecimal(5);
                         }
+
+                        TotSal = TotSal + DR.GetDecimal(5);
+                        Cant++;
                     }
                 }
 
-
-                conexion.ConnectionString = CadenaConexion;
-                conexion.Open();
-
-                comando.Connection = conexion;
-                comando.CommandType = CommandType.Text;
-                comando.CommandText = SQLActividad;
-                comando.ExecuteNonQuery();
+                Prom = TotSal / Cant;
 
                 conexion.Close();
+            }
+            catch (Exception Mensaje)
+            {
+                MessageBox.Show(Mensaje.ToString());
+            }
+        }
+
+        public void GenerarReporte(DataGridView Grilla)
+        {
+            try
+            {
+                Int32 fila = 0;
+                string[] vecDatos = new string[2];
+
+                if (Grilla.Rows.Count > 0)
+                {
+                    StreamWriter Reporte = new StreamWriter("Reporte.txt", false);
+
+                    Reporte.WriteLine(DetalleActividad);
+                    Reporte.WriteLine("");
+                    Reporte.WriteLine("DNI      NOMBRE COMPLETO");
+
+                    while (fila < Grilla.Rows.Count)
+                    {
+                        Reporte.WriteLine(Grilla.Rows[fila].Cells[0].Value + "      " + Grilla.Rows[fila].Cells[1].Value);
+                        fila++;
+                    }
+
+                    Reporte.WriteLine("");
+                    Reporte.WriteLine("Mayor saldo:     " + Saldo);
+                    Reporte.WriteLine("Menor saldo:     " + Men);
+                    Reporte.WriteLine("Promedio de saldos:     " + Prom);
+                    Reporte.WriteLine("Total de saldos:     " + TotSal);
+
+                    Reporte.Close();
+                    
+                    MessageBox.Show("Archivo Reporte.txt creado exitosamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    MessageBox.Show("La grilla no tiene filas.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
             catch (Exception Mensaje)
             {

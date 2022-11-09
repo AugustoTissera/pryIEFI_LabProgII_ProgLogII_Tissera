@@ -38,10 +38,10 @@
             this.lblBarrio = new System.Windows.Forms.Label();
             this.lblDireccion = new System.Windows.Forms.Label();
             this.lblNombre = new System.Windows.Forms.Label();
-            this.txtActividad = new System.Windows.Forms.TextBox();
             this.txtSaldo = new System.Windows.Forms.TextBox();
             this.txtDireccion = new System.Windows.Forms.TextBox();
-            this.txtBarrio = new System.Windows.Forms.TextBox();
+            this.cboBarrio = new System.Windows.Forms.ComboBox();
+            this.cboActividad = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // lblDNI
@@ -58,10 +58,11 @@
             // 
             this.txtDNI.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.txtDNI.Location = new System.Drawing.Point(67, 91);
-            this.txtDNI.Mask = "99999";
+            this.txtDNI.Mask = "9999";
             this.txtDNI.Name = "txtDNI";
-            this.txtDNI.Size = new System.Drawing.Size(50, 26);
+            this.txtDNI.Size = new System.Drawing.Size(43, 26);
             this.txtDNI.TabIndex = 1;
+            this.txtDNI.Text = "0000";
             this.txtDNI.ValidatingType = typeof(int);
             // 
             // txtNombre
@@ -144,14 +145,6 @@
             this.lblNombre.TabIndex = 9;
             this.lblNombre.Text = "Nombre completo:";
             // 
-            // txtActividad
-            // 
-            this.txtActividad.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.txtActividad.Location = new System.Drawing.Point(17, 308);
-            this.txtActividad.Name = "txtActividad";
-            this.txtActividad.Size = new System.Drawing.Size(275, 26);
-            this.txtActividad.TabIndex = 10;
-            // 
             // txtSaldo
             // 
             this.txtSaldo.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
@@ -168,23 +161,53 @@
             this.txtDireccion.Size = new System.Drawing.Size(277, 26);
             this.txtDireccion.TabIndex = 12;
             // 
-            // txtBarrio
+            // cboBarrio
             // 
-            this.txtBarrio.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.txtBarrio.Location = new System.Drawing.Point(17, 256);
-            this.txtBarrio.Name = "txtBarrio";
-            this.txtBarrio.Size = new System.Drawing.Size(275, 26);
-            this.txtBarrio.TabIndex = 13;
+            this.cboBarrio.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboBarrio.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.cboBarrio.FormattingEnabled = true;
+            this.cboBarrio.Items.AddRange(new object[] {
+            "Nueva Córdoba",
+            "Alta Córdoba",
+            "Barrio Parque",
+            "San Fernando",
+            "Nueva Italia",
+            "San Vicente",
+            "General Paz",
+            "Maipú",
+            "Villa Allende",
+            "Cerro de las Rosas"});
+            this.cboBarrio.Location = new System.Drawing.Point(16, 256);
+            this.cboBarrio.Name = "cboBarrio";
+            this.cboBarrio.Size = new System.Drawing.Size(276, 28);
+            this.cboBarrio.TabIndex = 13;
+            // 
+            // cboActividad
+            // 
+            this.cboActividad.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboActividad.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.cboActividad.FormattingEnabled = true;
+            this.cboActividad.Items.AddRange(new object[] {
+            "Musculación",
+            "Crossfit",
+            "Pilates",
+            "Yoga",
+            "Cardio",
+            "Funcional"});
+            this.cboActividad.Location = new System.Drawing.Point(16, 308);
+            this.cboActividad.Name = "cboActividad";
+            this.cboActividad.Size = new System.Drawing.Size(276, 28);
+            this.cboActividad.TabIndex = 14;
             // 
             // frmAgregar
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(305, 445);
-            this.Controls.Add(this.txtBarrio);
+            this.Controls.Add(this.cboActividad);
+            this.Controls.Add(this.cboBarrio);
             this.Controls.Add(this.txtDireccion);
             this.Controls.Add(this.txtSaldo);
-            this.Controls.Add(this.txtActividad);
             this.Controls.Add(this.lblNombre);
             this.Controls.Add(this.lblDireccion);
             this.Controls.Add(this.lblBarrio);
@@ -214,9 +237,9 @@
         private System.Windows.Forms.Label lblBarrio;
         private System.Windows.Forms.Label lblDireccion;
         private System.Windows.Forms.Label lblNombre;
-        private System.Windows.Forms.TextBox txtActividad;
         private System.Windows.Forms.TextBox txtSaldo;
         private System.Windows.Forms.TextBox txtDireccion;
-        private System.Windows.Forms.TextBox txtBarrio;
+        private System.Windows.Forms.ComboBox cboBarrio;
+        private System.Windows.Forms.ComboBox cboActividad;
     }
 }

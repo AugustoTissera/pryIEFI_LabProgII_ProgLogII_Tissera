@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -17,6 +18,7 @@ namespace pryIEFI_LabProgII_ProgLogII_Tissera
             InitializeComponent();
         }
 
+        public Int32 Barrio = 0, Actividad = 0;
         private void btnBuscar_Click(object sender, EventArgs e)
         {
             btnModificar.Enabled = false;
@@ -24,8 +26,6 @@ namespace pryIEFI_LabProgII_ProgLogII_Tissera
             btnGuardar.Enabled = false;
             txtNombre.Enabled = false;
             txtDireccion.Enabled = false;
-            txtBarrio.Enabled = false;
-            txtActividad.Enabled = false;
             txtSaldo.Enabled = false;
 
             if (txtDNI.Text == "")
@@ -55,9 +55,9 @@ namespace pryIEFI_LabProgII_ProgLogII_Tissera
                 {
                     txtNombre.Text = socio.Nombre_Apellido;
                     txtDireccion.Text = socio.Direccion;
-                    txtBarrio.Text = socio.ElBarrio;
-                    txtActividad.Text = socio.LaActividad;
                     txtSaldo.Text = socio.ElSaldo.ToString();
+                    txtActividad.Text = socio.LaActividad;
+                    txtBarrio.Text = socio.ElBarrio;
 
                     btnModificar.Enabled = true;
                     btnBorrar.Enabled = true;
@@ -72,19 +72,27 @@ namespace pryIEFI_LabProgII_ProgLogII_Tissera
             btnGuardar.Enabled = true;
             txtNombre.Enabled = true;
             txtDireccion.Enabled = true;
-            txtBarrio.Enabled = true;
-            txtActividad.Enabled = true;
             txtSaldo.Enabled = true;
+            btnBuscar.Enabled = false;
+            txtDNI.Enabled = false;
         }
 
         private void btnGuardar_Click(object sender, EventArgs e)
         {
-            
-            //PENDIENTE
-            clsSocio socio = new clsSocio();
-            socio.ElSaldo = Convert.ToDecimal(txtSaldo.Text);
-            socio.Modificar(Convert.ToInt32(txtDNI.Text));
-            MessageBox.Show("Datos actualizados con éxito.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            if (txtDNI.Text == "" || txtNombre.Text == "" || txtDireccion.Text == "" || txtSaldo.Text == "")
+            {
+                MessageBox.Show("Debe llenar todos los campos.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else
+            {
+                clsSocio socio = new clsSocio();
+                socio.ElSaldo = Convert.ToDecimal(txtSaldo.Text);
+                socio.Nombre_Apellido = txtNombre.Text;
+                socio.Direccion = txtDireccion.Text;
+                socio.Modificar(Convert.ToInt32(txtDNI.Text));
+                txtDNI.Enabled = true;
+                btnBuscar.Enabled = true;
+            }
         }
 
         private void btnBorrar_Click(object sender, EventArgs e)
