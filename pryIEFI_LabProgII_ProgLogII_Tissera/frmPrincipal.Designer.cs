@@ -90,6 +90,7 @@
             this.agregarNuevosClientesToolStripMenuItem.Name = "agregarNuevosClientesToolStripMenuItem";
             this.agregarNuevosClientesToolStripMenuItem.Size = new System.Drawing.Size(258, 22);
             this.agregarNuevosClientesToolStripMenuItem.Text = "Agregar nuevos clientes...";
+            this.agregarNuevosClientesToolStripMenuItem.Click += new System.EventHandler(this.agregarNuevosClientesToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 

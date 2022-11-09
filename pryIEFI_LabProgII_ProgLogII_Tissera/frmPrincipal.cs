@@ -28,5 +28,10 @@ namespace pryIEFI_LabProgII_ProgLogII_Tissera
             frmModificar Modificar = new frmModificar();
             Modificar.ShowDialog();
         }
+
+        private void agregarNuevosClientesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

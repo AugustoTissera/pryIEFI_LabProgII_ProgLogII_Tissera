@@ -221,12 +221,99 @@ namespace pryIEFI_LabProgII_ProgLogII_Tissera
         {
             try
             {
+                string SQLSocio, SQLBarrio, SQLActividad;
+                SQLSocio = "INSERT INTO Socio (Dni_Socio,Nombre_Apellido,Direccion,Saldo) VALUES ('" + DniSocio.ToString() + "'," + NombreApellido + "," + DetalleDireccion + "," + Saldo.ToString() + ")";
+                SQLBarrio = "INSERT INTO Barrio (Detalle_Barrio) VALUES ('" + DetalleBarrio + ")";
+                SQLActividad = "INSERT INTO Actividad (Detalle_Actividad) VALUES ('" + DetalleActividad + ")";
+
                 conexion.ConnectionString = CadenaConexion;
                 conexion.Open();
 
                 comando.Connection = conexion;
                 comando.CommandType = CommandType.Text;
-                comando.CommandText = "DELETE * FROM Socio WHERE Dni_Socio = " + Dni_Socio;
+                comando.CommandText = SQLSocio;
+                comando.ExecuteNonQuery();
+
+                conexion.Close();
+
+                
+                conexion.ConnectionString = CadenaConexion;
+                conexion.Open();
+
+                comando.Connection = conexion;
+                comando.CommandType = CommandType.TableDirect;
+                comando.CommandText = Barrio;
+
+                OleDbDataReader DRBarrio = comando.ExecuteReader();
+
+                if (DRBarrio.HasRows)
+                {
+                    while (DRBarrio.Read())
+                    {
+                        if (DRBarrio.GetString(1) == DetalleBarrio)
+                        {
+                            DRBarrio.Read();
+                        }
+                        else
+                        {
+                            conexion.Close();
+
+                            conexion.ConnectionString = CadenaConexion;
+                            conexion.Open();
+
+                            comando.Connection = conexion;
+                            comando.CommandType = CommandType.Text;
+                            comando.CommandText = SQLBarrio;
+                            comando.ExecuteNonQuery();
+
+                            conexion.Close();
+                        }
+                    }
+                }
+                conexion.Close();
+
+                
+                conexion.ConnectionString = CadenaConexion;
+                conexion.Open();
+
+                comando.Connection = conexion;
+                comando.CommandType = CommandType.TableDirect;
+                comando.CommandText = Actividad;
+
+                OleDbDataReader DRActividad = comando.ExecuteReader();
+
+                if (DRActividad.HasRows)
+                {
+                    while (DRActividad.Read())
+                    {
+                        if (DRActividad.GetString(1) == DetalleActividad)
+                        {
+                            DRActividad.Read();
+                        }
+                        else
+                        {
+                            conexion.Close();
+
+                            conexion.ConnectionString = CadenaConexion;
+                            conexion.Open();
+
+                            comando.Connection = conexion;
+                            comando.CommandType = CommandType.Text;
+                            comando.CommandText = SQLActividad;
+                            comando.ExecuteNonQuery();
+
+                            conexion.Close();
+                        }
+                    }
+                }
+
+
+                conexion.ConnectionString = CadenaConexion;
+                conexion.Open();
+
+                comando.Connection = conexion;
+                comando.CommandType = CommandType.Text;
+                comando.CommandText = SQLActividad;
                 comando.ExecuteNonQuery();
 
                 conexion.Close();
