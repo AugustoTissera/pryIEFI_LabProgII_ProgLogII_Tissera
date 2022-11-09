@@ -322,6 +322,6 @@ namespace pryIEFI_LabProgII_ProgLogII_Tissera
             {
                 MessageBox.Show(Mensaje.ToString());
             }
-        }
+        } //PENDIENTE
     }
 }

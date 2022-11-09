@@ -58,9 +58,9 @@
             // 
             this.txtDNI.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.txtDNI.Location = new System.Drawing.Point(67, 91);
-            this.txtDNI.Mask = "99999";
+            this.txtDNI.Mask = "9999";
             this.txtDNI.Name = "txtDNI";
-            this.txtDNI.Size = new System.Drawing.Size(50, 26);
+            this.txtDNI.Size = new System.Drawing.Size(43, 26);
             this.txtDNI.TabIndex = 1;
             this.txtDNI.ValidatingType = typeof(int);
             // 

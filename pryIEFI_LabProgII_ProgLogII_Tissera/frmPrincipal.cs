@@ -31,7 +31,8 @@ namespace pryIEFI_LabProgII_ProgLogII_Tissera
 
         private void agregarNuevosClientesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            frmAgregar Agregar = new frmAgregar();
+            Agregar.ShowDialog();
         }
     }
 }
